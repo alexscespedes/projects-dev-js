@@ -34,30 +34,50 @@ const addTask = function (description) {
     descriptionTask: description,
     completed: false,
   });
-
-  console.log(tasks);
 };
 
 const removeTask = function (id) {
-  return !tasks.find((task) => task.id === id)
-    ? "The task doesn't exist"
-    : "Task succesfully removed";
+  const index = tasks.findIndex((task) => task.id === id);
+
+  if (index === -1) {
+    console.log("The task doesn't exist");
+  }
+
+  tasks.splice(index, 1);
+  console.log("Task succesfully removed");
 };
 
 const updateTask = function (id, newDescription) {
-  const tasks = tasks.find((task) => task.id === id);
-  if ((task.id = id)) {
-    task.description = newDescription;
-    return `Task ${task.name} description updated`;
-  } else {
-    return `Task ${task.name} not found`;
+  const index = tasks.findIndex((task) => task.id === id);
+
+  if (index === -1) {
+    console.log("The task doesn't exist");
   }
+
+  index.descriptionTask = newDescription;
 };
 
-// const toggleTaskCompletion = function (id) {};
+const toggleTaskCompletion = function (id) {
+  const task = tasks.find((task) => task.id === id);
+  if (task) task.completed = !task.completed;
+};
 
-// const listTasks = function () {};
+const listTasks = function () {
+  if (tasks.length === 0) {
+    console.log("No tasks available");
+    return;
+  }
+  tasks.forEach((task) => {
+    const status = task.completed ? "Completed!" : "Not completed.";
+    console.log(`${status} ID: (${task.id} ${task.descriptionTask})`);
+  });
+};
 
-// addTask("Learning JS");
-// addTask("Learning C");
-// addTask("Learning GO");
+addTask("Learning JS");
+addTask("Learning C");
+addTask("Learning GO");
+listTasks();
+toggleTaskCompletion(tasks[1].id);
+updateTask(tasks[1].id, "Learning CSharp (C#)");
+// removeTask(tasks[2].id);
+listTasks();
