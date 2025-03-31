@@ -25,12 +25,20 @@
 
 const tasks = [];
 
+incrementCounter = (function () {
+  let counter = 0;
+  return function () {
+    counter++;
+    return counter;
+  };
+})();
+
 const addTask = function (description) {
   if (description === "") {
     return "Empty description, please provide it";
   }
   tasks.push({
-    id: Date.now(),
+    id: incrementCounter(),
     descriptionTask: description,
     completed: false,
   });
@@ -48,13 +56,16 @@ const removeTask = function (id) {
 };
 
 const updateTask = function (id, newDescription) {
-  const index = tasks.findIndex((task) => task.id === id);
+  const task = tasks.find((task) => task.id === id);
 
-  if (index === -1) {
+  if (task === -1) {
     console.log("The task doesn't exist");
   }
+  console.log(task);
 
-  index.descriptionTask = newDescription;
+  task.descriptionTask = newDescription;
+
+  // console.log(index.descriptionTask);
 };
 
 const toggleTaskCompletion = function (id) {
@@ -77,7 +88,9 @@ addTask("Learning JS");
 addTask("Learning C");
 addTask("Learning GO");
 listTasks();
+toggleTaskCompletion(tasks[0].id);
 toggleTaskCompletion(tasks[1].id);
 updateTask(tasks[1].id, "Learning CSharp (C#)");
-// removeTask(tasks[2].id);
+removeTask(tasks[2].id);
 listTasks();
+console.log(tasks);
