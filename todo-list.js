@@ -1,54 +1,33 @@
-// array of objects created for testing porpuses.
-// const todoList = [
-//   {
-//     id: 1,
-//     description: "Learn C# Basic Programming",
-//     completed: true,
-//   },
-//   {
-//     id: 2,
-//     description: "Practice JS Data Structures",
-//     completed: true,
-//   },
-//   {
-//     id: 3,
-//     description: "Deploy a Web App with Azure Kubernetes Service",
-//     completed: false,
-//   },
-// ];
-
-// console.log(todoList);
-
-// for (const element of todoList) {
-//   console.log(element);
-// }
-
 const tasks = [];
 
-incrementCounter = (function () {
-  let counter = 0;
-  return function () {
-    counter++;
-    return counter;
-  };
-})();
+// incrementCounter = (function () {
+//   let counter = 0;
+//   return function () {
+//     counter++;
+//     return counter;
+//   };
+// })();
 
 const addTask = function (description) {
   if (description === "") {
-    return "Empty description, please provide it";
+    console.log("Empty description, please provide it");
+    return;
+  } else {
+    tasks.push({
+      id: Date.now(),
+      descriptionTask: description,
+      completed: false,
+    });
   }
-  tasks.push({
-    id: incrementCounter(),
-    descriptionTask: description,
-    completed: false,
-  });
 };
 
 const removeTask = function (id) {
   const index = tasks.findIndex((task) => task.id === id);
+  console.log(index);
 
   if (index === -1) {
     console.log("The task doesn't exist");
+    return;
   }
 
   tasks.splice(index, 1);
@@ -58,14 +37,11 @@ const removeTask = function (id) {
 const updateTask = function (id, newDescription) {
   const task = tasks.find((task) => task.id === id);
 
-  if (task === -1) {
+  if (task.id === -1) {
     console.log("The task doesn't exist");
+    return;
   }
-  console.log(task);
-
   task.descriptionTask = newDescription;
-
-  // console.log(index.descriptionTask);
 };
 
 const toggleTaskCompletion = function (id) {
@@ -84,13 +60,25 @@ const listTasks = function () {
   });
 };
 
+const filterbyCompletedStatus = function () {
+  return tasks.filter((task) => task.completed === true);
+};
+
+const sortbyCompletedStatus = function () {
+  return tasks.sort((a, b) =>
+    a.descriptionTask.localeCompare(b.descriptionTask)
+  );
+};
+
 addTask("Learning JS");
 addTask("Learning C");
 addTask("Learning GO");
-listTasks();
 toggleTaskCompletion(tasks[0].id);
 toggleTaskCompletion(tasks[1].id);
 updateTask(tasks[1].id, "Learning CSharp (C#)");
+
+console.log(filterbyCompletedStatus());
+console.log(sortbyCompletedStatus());
+
 removeTask(tasks[2].id);
 listTasks();
-console.log(tasks);
