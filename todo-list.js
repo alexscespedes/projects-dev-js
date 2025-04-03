@@ -61,21 +61,25 @@ const listTasks = function () {
     .join("\n");
 };
 
-const filterbyCompletedStatus = function () {
-  return tasks.filter((task) => task.completed === true);
+const filterTaskByStatus = function (completed = true) {
+  return tasks.filter((task) => task.completed === completed);
 };
 
-const sortbyCompletedStatus = function () {
-  return tasks.sort((a, b) =>
-    a.descriptionTask.localeCompare(b.descriptionTask)
-  );
+const sortTasks = function (sortBy = "description") {
+  if (sortBy === "completed") {
+    return tasks.sort((a, b) => a.completed - b.completed);
+  } else {
+    return tasks.sort((a, b) =>
+      a.descriptionTask.localeCompare(b.descriptionTask)
+    );
+  }
 };
 
 addTask("Learning JS");
 addTask("Learning C");
 addTask("Learning GO");
-// toggleTaskCompletion(tasks[0].id);
-// toggleTaskCompletion(tasks[1].id);
+// console.log(toggleTaskCompletion(tasks[0].id));
+// console.log(toggleTaskCompletion(tasks[1].id));
 // updateTask(tasks[1].id, "Learning CSharp (C#)");
 
 // console.log(filterbyCompletedStatus());
