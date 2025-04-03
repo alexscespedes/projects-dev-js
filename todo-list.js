@@ -10,8 +10,7 @@ const tasks = [];
 
 const addTask = function (description) {
   if (description === "") {
-    console.log("Empty description, please provide it");
-    return;
+    return "Empty description, please provide it";
   } else {
     tasks.push({
       id: Date.now(),
@@ -23,40 +22,38 @@ const addTask = function (description) {
 
 const removeTask = function (id) {
   const index = tasks.findIndex((task) => task.id === id);
-  console.log(index);
 
   if (index === -1) {
-    console.log("The task doesn't exist");
-    return;
+    return "The task doesn't exist";
   }
 
   tasks.splice(index, 1);
-  console.log("Task succesfully removed");
+  return "Task succesfully removed";
 };
 
 const updateTask = function (id, newDescription) {
   const task = tasks.find((task) => task.id === id);
 
   if (task.id === -1) {
-    console.log("The task doesn't exist");
-    return;
+    return "The task doesn't exist";
   }
   task.descriptionTask = newDescription;
+  return "Task succesfully updated";
 };
 
 const toggleTaskCompletion = function (id) {
   const task = tasks.find((task) => task.id === id);
   if (task) task.completed = !task.completed;
+  return task.completed;
 };
 
 const listTasks = function () {
   if (tasks.length === 0) {
-    console.log("No tasks available");
-    return;
+    return "No tasks available";
   }
   tasks.forEach((task) => {
     const status = task.completed ? "Completed!" : "Not completed.";
-    console.log(`${status} ID: (${task.id} ${task.descriptionTask})`);
+    return `${status} ID: (${task.id} ${task.descriptionTask})`;
   });
 };
 
