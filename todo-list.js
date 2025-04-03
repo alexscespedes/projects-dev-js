@@ -34,7 +34,7 @@ const removeTask = function (id) {
 const updateTask = function (id, newDescription) {
   const task = tasks.find((task) => task.id === id);
 
-  if (task.id === -1) {
+  if (!task) {
     return "The task doesn't exist";
   }
   task.descriptionTask = newDescription;
@@ -51,10 +51,14 @@ const listTasks = function () {
   if (tasks.length === 0) {
     return "No tasks available";
   }
-  tasks.forEach((task) => {
-    const status = task.completed ? "Completed!" : "Not completed.";
-    return `${status} ID: (${task.id} ${task.descriptionTask})`;
-  });
+  return tasks
+    .map(
+      (task) =>
+        `${task.completed ? "completed" : "Not completed"} | ID: ${task.id} | ${
+          task.descriptionTask
+        }`
+    )
+    .join("\n");
 };
 
 const filterbyCompletedStatus = function () {
@@ -70,12 +74,12 @@ const sortbyCompletedStatus = function () {
 addTask("Learning JS");
 addTask("Learning C");
 addTask("Learning GO");
-toggleTaskCompletion(tasks[0].id);
-toggleTaskCompletion(tasks[1].id);
-updateTask(tasks[1].id, "Learning CSharp (C#)");
+// toggleTaskCompletion(tasks[0].id);
+// toggleTaskCompletion(tasks[1].id);
+// updateTask(tasks[1].id, "Learning CSharp (C#)");
 
-console.log(filterbyCompletedStatus());
-console.log(sortbyCompletedStatus());
+// console.log(filterbyCompletedStatus());
+// console.log(sortbyCompletedStatus());
 
-removeTask(tasks[2].id);
-listTasks();
+// removeTask(tasks[2].id);
+console.log(listTasks());
