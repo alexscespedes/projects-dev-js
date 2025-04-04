@@ -42,8 +42,21 @@ const addContact = function (name, phone, email) {
   });
 };
 
+const removeContact = function (id) {
+  const index = contacts.findIndex((contact) => (contact.id = id));
+
+  if (index === -1) {
+    return "The contact doesn't exist";
+  }
+
+  contacts.splice(index, 1);
+  return "Contact succesfully removed";
+};
+
 // console.log(checkPhoneNumbers("809-479-9651"));
 // console.log(checkEmail("alex@gmail.com"));
 
 addContact("Alex", "809-479-9651", "alex@gmail.com");
+addContact("Damon", "123-456-9987", "damon@gmail.com");
+// removeContact(1);
 console.log(contacts);
