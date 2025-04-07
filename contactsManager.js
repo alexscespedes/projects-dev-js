@@ -21,6 +21,14 @@ const checkEmail = function (str) {
   return regex.test(str);
 };
 
+const contactPhoneExists = function (str) {
+  return contacts.find((contact) => contact.contactPhone === str);
+};
+
+const contactEmailExists = function (str) {
+  return contacts.find((contact) => contact.contactEmail === str);
+};
+
 const addContact = function (name, phone, email) {
   if (name === "") {
     return "Empty description, please provide one.";
@@ -32,6 +40,14 @@ const addContact = function (name, phone, email) {
 
   if (!checkEmail(email)) {
     return "Invalid email, please provide one.";
+  }
+
+  if (contactPhoneExists(phone)) {
+    return "Contact phone already exists, please a new one.";
+  }
+
+  if (contactEmailExists(email)) {
+    return "Contact email already exists, please a new one.";
   }
 
   contacts.push({
@@ -95,9 +111,10 @@ const listContacts = function () {
 // console.log(checkEmail("alex@gmail.com"));
 
 addContact("Alexander", "809-479-9651", "alex@gmail.com");
-addContact("Daniel", "829-489-9782", "daniel@gmail.com");
-addContact("Damon", "123-456-9987", "damon@gmail.com");
+console.log(addContact("Daniel", "809-478-9551", "daniel@gmail.com"));
+console.log(addContact("Damon", "123-456-9987", "damon@gmail.com"));
 // removeContact(1);
 // updateContact(2, "Stefan Salvatore", "809-414-9966", "stefan@gmail.com");
 // console.log(searchContacts("da"));
 console.log(listContacts());
+// console.log(contacts);
