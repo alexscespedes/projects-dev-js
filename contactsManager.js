@@ -53,10 +53,28 @@ const removeContact = function (id) {
   return "Contact succesfully removed";
 };
 
+const updateContact = function (id, newName, newPhone, newEmail) {
+  const contact = contacts.find((contact) => contact.id === id);
+
+  if (!contact) {
+    return "The contact does not exist";
+  }
+
+  contact.contactName = newName;
+  contact.contactPhone = newPhone;
+  contact.contactEmail = newEmail;
+  return "Contact successfully updated";
+};
+
+// const searchContacts = function(query) {
+
+// }
+
 // console.log(checkPhoneNumbers("809-479-9651"));
 // console.log(checkEmail("alex@gmail.com"));
 
 addContact("Alex", "809-479-9651", "alex@gmail.com");
 addContact("Damon", "123-456-9987", "damon@gmail.com");
 // removeContact(1);
-console.log(contacts);
+// updateContact(2, "Stefan Salvatore", "809-414-9966", "stefan@gmail.com");
+// console.log(contacts);
