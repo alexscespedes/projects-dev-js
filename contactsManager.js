@@ -78,6 +78,19 @@ const searchContacts = function (query) {
   return contact;
 };
 
+const listContacts = function () {
+  if (contacts.length === 0) {
+    return "No contact available";
+  }
+
+  return contacts
+    .map(
+      (contact) =>
+        `ID: ${contact.id} | Name: ${contact.contactName} | Phone: ${contact.contactPhone} | Email: ${contact.contactEmail}`
+    )
+    .join("\n");
+};
+
 // console.log(checkPhoneNumbers("809-479-9651"));
 // console.log(checkEmail("alex@gmail.com"));
 
@@ -87,4 +100,4 @@ addContact("Damon", "123-456-9987", "damon@gmail.com");
 // removeContact(1);
 // updateContact(2, "Stefan Salvatore", "809-414-9966", "stefan@gmail.com");
 // console.log(searchContacts("da"));
-// console.log(contacts);
+console.log(listContacts());
