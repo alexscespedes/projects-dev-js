@@ -102,7 +102,7 @@ const listContacts = function () {
   }
 
   return contacts
-    .sort()
+    .sort((a, b) => a.contactName.localeCompare(b.contactName))
     .map(
       (contact) =>
         `ID: ${contact.id} | Name: ${contact.contactName} | Phone: ${contact.contactPhone} | Email: ${contact.contactEmail}`
@@ -113,11 +113,11 @@ const listContacts = function () {
 // console.log(checkPhoneNumbers("809-479-9651"));
 // console.log(checkEmail("alex@gmail.com"));
 
-addContact("Daniel", "809-478-9551", "daniel@gmail.com");
-addContact("Damon", "123-456-9987", "damon@gmail.com");
+addContact("daniel", "809-478-9551", "daniel@gmail.com");
+addContact("damon", "123-456-9987", "damon@gmail.com");
 addContact("Alexander", "809-479-9651", "alex@gmail.com");
 // removeContact(1);
 // updateContact(2, "Stefan Salvatore", "809-414-9966", "stefan@gmail.com");
-// console.log(searchContacts("da"));
+// console.log(searchContacts("DA"));
 console.log(listContacts());
 // console.log(contacts);
