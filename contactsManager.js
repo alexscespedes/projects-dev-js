@@ -2,13 +2,20 @@
 
 const contacts = [];
 
-const incrementID = (function () {
-  let counter = 0;
-  return function () {
-    counter++;
-    return counter;
-  };
-})();
+// const incrementID = (function () {
+//   let counter = 0;
+//   return function () {
+//     counter++;
+//     return counter;
+//   };
+// })();
+
+// Unique ID Strategy
+
+const generateID = () => crypto.randomUUID();
+// With timestamp + random.
+const generateIDPlus = () =>
+  `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
 
 const checkPhoneNumbers = function (str) {
   const regex = /^(1\s?)?(\d{3}|\(\d{3}\))[\s\-]?\d{3}[\s\-]?\d{4}$/;
@@ -51,7 +58,7 @@ const addContact = function (name, phone, email) {
   }
 
   contacts.push({
-    id: incrementID(),
+    id: generateIDPlus(),
     contactName: name,
     contactPhone: phone,
     contactEmail: email,
