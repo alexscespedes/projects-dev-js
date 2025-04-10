@@ -57,11 +57,11 @@ const addContact = function (name, phone, email) {
     contactEmail: email,
   });
 
-  return "Contact succesfully addedd";
+  return "Contact succesfully added";
 };
 
 const removeContact = function (id) {
-  const index = contacts.findIndex((contact) => (contact.id = id));
+  const index = contacts.findIndex((contact) => contact.id === id);
 
   if (index === -1) {
     return "The contact doesn't exist";
@@ -78,6 +78,15 @@ const updateContact = function (id, newName, newPhone, newEmail) {
     return "The contact does not exist";
   }
 
+  // Validate if phone or email are already belonging to another contact.
+  if (contactPhoneExists(newPhone) && contact.contactPhone !== newPhone) {
+    return "Contact phone already exists";
+  }
+
+  if (contactEmailExists(newEmail) && contact.contactEmail !== newEmail) {
+    return "Contact email already exists";
+  }
+
   contact.contactName = newName;
   contact.contactPhone = newPhone;
   contact.contactEmail = newEmail;
@@ -90,7 +99,7 @@ const searchContacts = function (query) {
   );
 
   if (contact.length === 0) {
-    return "The contact does not found";
+    return "The contact was not found";
   }
 
   return contact;
@@ -124,9 +133,10 @@ const groupContactsByFirstLetter = function () {
 addContact("daniel", "809-478-9551", "daniel@gmail.com");
 addContact("damon", "123-456-9987", "damon@gmail.com");
 addContact("Alexander", "809-479-9651", "alex@gmail.com");
+// console.log(listContacts());
 // removeContact(1);
 // updateContact(2, "Stefan Salvatore", "809-414-9966", "stefan@gmail.com");
 // console.log(searchContacts("DA"));
-// console.log(listContacts());
-console.log(groupContactsByFirstLetter());
+console.log(listContacts());
+// console.log(groupContactsByFirstLetter());
 // console.log(contacts);
