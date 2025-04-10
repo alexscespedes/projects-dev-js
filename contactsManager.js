@@ -110,6 +110,14 @@ const listContacts = function () {
     .join("\n");
 };
 
+const groupContactsByFirstLetter = function () {
+  return contacts.reduce((acc, contact) => {
+    const letter = contact.contactName[0];
+    acc[letter] = (acc[letter] || []).concat(contact.contactName);
+    return acc;
+  }, {});
+};
+
 // console.log(checkPhoneNumbers("809-479-9651"));
 // console.log(checkEmail("alex@gmail.com"));
 
@@ -119,5 +127,6 @@ addContact("Alexander", "809-479-9651", "alex@gmail.com");
 // removeContact(1);
 // updateContact(2, "Stefan Salvatore", "809-414-9966", "stefan@gmail.com");
 // console.log(searchContacts("DA"));
-console.log(listContacts());
+// console.log(listContacts());
+console.log(groupContactsByFirstLetter());
 // console.log(contacts);
