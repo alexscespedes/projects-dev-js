@@ -6,6 +6,8 @@ const products = [
   { name: "Black Puma T-shirt", price: 25, quantity: 55 },
 ];
 
+const roundToTwo = (num) => Math.round((num * 100) / 100).toFixed(2);
+
 const calculateCartTotal = function (data) {
   const subTotal = data
     .map((product) => product.price * product.quantity)
