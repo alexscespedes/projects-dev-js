@@ -6,4 +6,11 @@ const products = [
   { name: "Black Puma T-shirt", price: 25, quantity: 55 },
 ];
 
-const calculateCartTotal = function () {};
+const calculateCartTotal = function (data) {
+  const subTotal = data
+    .map((product) => product.price * product.quantity)
+    .reduce((acc, value) => acc + value);
+  return subTotal;
+};
+
+console.log(calculateCartTotal(products));
