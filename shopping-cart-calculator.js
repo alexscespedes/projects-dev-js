@@ -10,7 +10,15 @@ const calculateCartTotal = function (data) {
   const subTotal = data
     .map((product) => product.price * product.quantity)
     .reduce((acc, value) => acc + value);
-  return subTotal;
+  const salesTax = subTotal * 0.08;
+  const total = subTotal + salesTax;
+  const object = {
+    subTotal: subTotal,
+    salesTax: salesTax,
+    total: total,
+  };
+  return object;
 };
 
+console.log(products);
 console.log(calculateCartTotal(products));
