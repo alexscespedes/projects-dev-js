@@ -1,12 +1,12 @@
 "use strict";
 
 const products = [
-  { name: "Dell Inspiron", price: 500, quantity: 5 },
-  { name: "Headphone SONY", price: 200, quantity: 25 },
-  { name: "Black Puma T-shirt", price: 25, quantity: 55 },
+  { name: "Dell Inspiron", price: 557.39, quantity: 5 },
+  { name: "Headphone SONY", price: 289.99, quantity: 25 },
+  { name: "Black Puma T-shirt", price: 27.39, quantity: 55 },
 ];
 
-const roundToTwo = (num) => Math.round((num * 100) / 100).toFixed(2);
+const roundToTwo = (num) => Number(Math.round((num * 100) / 100).toFixed(2));
 
 const calculateCartTotal = function (data) {
   const subTotal = data
@@ -15,10 +15,13 @@ const calculateCartTotal = function (data) {
   const salesTax = subTotal * 0.08;
   const total = subTotal + salesTax;
   const object = {
-    subTotal: subTotal,
-    salesTax: salesTax,
-    total: total,
+    subTotal: roundToTwo(subTotal),
+    salesTax: roundToTwo(salesTax),
+    total: roundToTwo(total),
   };
+  // console.log(roundToTwo(subTotal));
+  // console.log(roundToTwo(salesTax));
+  // console.log(roundToTwo(total));
   return object;
 };
 
