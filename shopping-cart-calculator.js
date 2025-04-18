@@ -12,8 +12,11 @@ const calculateCartTotal = function (data) {
   if (data.length === 0) {
     return "The array is empty.";
   }
+  /*
+  Validations:
   // if is not a number
   // if is less than 0
+  */
   for (const product of data) {
     if (
       typeof product.price !== "number" ||
@@ -27,19 +30,29 @@ const calculateCartTotal = function (data) {
     }
 
     console.log(
-      `Product Name: ${product.name} Product Price: ${product.price} Product Quantity:${product.quantity}`
+      `Product Name: ${product.name} Product Price: ${product.price} Product Quantity: ${product.quantity}`
     );
+
+    if (product.price > 30) {
+      product.price -= product.price * 0.05;
+    }
   }
 
   const subTotal = data
     .map((product) => product.price * product.quantity)
     .reduce((acc, value) => acc + value);
   const salesTax = subTotal * 0.08;
-  const total = subTotal + salesTax;
+  let total = subTotal + salesTax;
+  let shippingCost = 0;
+  if (total < 50) {
+    shippingCost = 5;
+    total += shippingCost;
+  }
   const object = {
     subTotal: roundToTwo(subTotal),
     salesTax: roundToTwo(salesTax),
     total: roundToTwo(total),
+    shippingCost: shippingCost,
   };
   return object;
 };
