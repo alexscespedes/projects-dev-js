@@ -6,12 +6,6 @@ const products = [
   { name: "Black Puma T-shirt", price: 27.39, quantity: 55 },
 ];
 
-const testProducts = [
-  { name: "Dell Inspiron", price: 66.36, quantity: 99 },
-  { name: "Headphone SONY", price: 289.99, quantity: 50 },
-  { name: "Black Puma T-shirt", price: 27.39, quantity: 55 },
-];
-
 const roundToTwo = (num) => Number(Math.round((num * 100) / 100).toFixed(2));
 
 const calculateCartTotal = function (data) {
@@ -31,6 +25,10 @@ const calculateCartTotal = function (data) {
     if (product.price < 0 || product.quantity < 0) {
       return "Error: Price and quantity must be non-negative and positive.";
     }
+
+    console.log(
+      `Product Name: ${product.name} Product Price: ${product.price} Product Quantity:${product.quantity}`
+    );
   }
 
   const subTotal = data
@@ -46,4 +44,4 @@ const calculateCartTotal = function (data) {
   return object;
 };
 
-console.log(calculateCartTotal(testProducts));
+console.log(calculateCartTotal(products));
