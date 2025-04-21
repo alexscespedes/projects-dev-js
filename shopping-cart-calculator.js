@@ -6,55 +6,66 @@ const products = [
   { name: "Black Puma T-shirt", price: 27.39, quantity: 55 },
 ];
 
-const roundToTwo = (num) => Number(Math.round((num * 100) / 100).toFixed(2));
+const roundToTwo = (num) => Number(num.toFixed(2));
 
 const calculateCartTotal = function (data) {
-  if (data.length === 0) {
-    return "The array is empty.";
+  if (!Array.isArray(data) || data.length === 0) {
+    return { error: "The array is empty." };
   }
   /*
   Validations:
-  // if is not a number
-  // if is less than 0
+  if name is null or undefined.
+  if is not a number
+  if is less than 0
   */
+
+  let subTotal = 0;
+
   for (const product of data) {
+    if (typeof product.name !== "string" || !product.name.trim()) {
+      return { error: "invalid product name." };
+    }
+
     if (
       typeof product.price !== "number" ||
       typeof product.quantity !== "number"
     ) {
-      return "Error: Invalid product data.";
+      return { error: "Invalid product data." };
     }
 
     if (product.price < 0 || product.quantity < 0) {
-      return "Error: Price and quantity must be non-negative and positive.";
+      return { error: "Price and quantity must be non-negative numbers." };
     }
+
+    const effectivePrice =
+      product.price > 30 ? product.price * 0.95 : product.price;
 
     console.log(
-      `Product Name: ${product.name} Product Price: ${product.price} Product Quantity: ${product.quantity}`
+      `Product: ${product.name}, Price: $${roundToTwo(
+        effectivePrice
+      )}, Quantity: ${product.quantity}`
     );
 
-    if (product.price > 30) {
-      product.price -= product.price * 0.05;
-    }
+    subTotal += effectivePrice * product.quantity;
   }
 
-  const subTotal = data
-    .map((product) => product.price * product.quantity)
-    .reduce((acc, value) => acc + value);
+  // const subTotal = data.reduce((acc, product) => {
+  //   const effectivePrice =
+  //     product.price > 30 ? product.price * 0.95 : product.price;
+  //   return acc + effectivePrice * product.quantity;
+  // });
+
   const salesTax = subTotal * 0.08;
   let total = subTotal + salesTax;
-  let shippingCost = 0;
-  if (total < 50) {
-    shippingCost = 5;
-    total += shippingCost;
-  }
-  const object = {
+  let shippingCost = total < 50 ? 5 : 0;
+  total += shippingCost;
+
+  return {
     subTotal: roundToTwo(subTotal),
     salesTax: roundToTwo(salesTax),
     total: roundToTwo(total),
     shippingCost: shippingCost,
   };
-  return object;
 };
 
 console.log(calculateCartTotal(products));
